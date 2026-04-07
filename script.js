@@ -62,9 +62,9 @@ form.addEventListener('submit', () => {
 	const numberValue = document.getElementById('numberInput').value;
 	console.log(calculateResult(list));
 	if (numberValue == calculateResult(list)) {
-		alert('ganaste');
+		alert('Ganaste!');
 	} else {
-		alert('perdiste volve a jugar');
+		alert('GAME OVER INSERT COIN');
 	}
 });
 
