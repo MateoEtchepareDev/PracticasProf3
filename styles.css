@@ -1,0 +1,163 @@
+/* Reset defaults */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Orbitron', sans-serif; /* sci-fi style font */
+}
+
+/* Body with dark, high-tech background */
+body {
+	background: radial-gradient(circle at center, #1a0000, #000000 80%);
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+	color: #ff1a1a;
+	overflow: hidden;
+}
+
+/* Glowing start button */
+#start-button {
+	background-color: transparent;
+	color: #ff1a1a;
+	border: 2px solid #ff1a1a;
+	padding: 18px 50px;
+	border-radius: 30px;
+	font-size: 1.5rem;
+	cursor: pointer;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	transition: all 0.3s ease;
+	box-shadow:
+		0 0 15px #ff1a1a,
+		0 0 40px #ff1a1a55,
+		0 0 60px #ff1a1a33;
+}
+
+#start-button:hover {
+	box-shadow:
+		0 0 25px #ff1a1a,
+		0 0 60px #ff1a1a88,
+		0 0 90px #ff1a1a55;
+	transform: scale(1.05);
+}
+
+/* Container for numbers */
+#container {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	justify-content: center;
+	min-height: 100px;
+}
+
+/* Number display boxes with neon sci-fi effect */
+#container div {
+	background-color: #330000;
+	color: #ff1a1a;
+	font-weight: bold;
+	font-size: 2.5rem;
+	padding: 25px 35px;
+	border-radius: 15px;
+	border: 2px solid #ff1a1a;
+	box-shadow:
+		0 0 10px #ff1a1a,
+		0 0 25px #ff1a1a77,
+		0 0 50px #ff1a1a44 inset;
+	opacity: 0;
+	transform: scale(0.5) rotateX(90deg);
+	animation: pop 0.5s forwards;
+}
+
+/* Pop-in animation with spin */
+@keyframes pop {
+	to {
+		opacity: 1;
+		transform: scale(1) rotateX(0deg);
+	}
+}
+
+/* Form styling with futuristic red glow */
+#numberForm {
+	margin-top: 0;
+	background-color: #1a0000cc;
+	padding: 25px 35px;
+	border-radius: 20px;
+	box-shadow:
+		0 0 20px #ff1a1a,
+		0 0 60px #ff1a1a44 inset;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	min-width: 200px;
+	border: 2px solid #ff1a1a;
+}
+
+/* Labels */
+#numberForm label {
+	font-size: 1.1rem;
+	font-weight: 500;
+	color: #ff4d4d;
+	letter-spacing: 1px;
+}
+
+/* Input with red neon glow */
+#numberForm input[type='number'] {
+	padding: 12px;
+	border-radius: 10px;
+	border: 2px solid #ff1a1a;
+	background-color: #330000;
+	color: #ff1a1a;
+	font-size: 1rem;
+	outline: none;
+	transition: all 0.3s ease;
+	box-shadow:
+		0 0 5px #ff1a1a,
+		0 0 15px #ff1a1a44 inset;
+}
+
+#numberForm input[type='number']:focus {
+	border-color: #ff4d4d;
+	box-shadow:
+		0 0 15px #ff1a1a,
+		0 0 30px #ff4d4d77 inset;
+}
+
+/* Submit button with neon glow */
+#numberForm button {
+	background-color: transparent;
+	color: #ff1a1a;
+	border: 2px solid #ff1a1a;
+	padding: 12px 0;
+	border-radius: 30px;
+	font-size: 1.1rem;
+	cursor: pointer;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	box-shadow:
+		0 0 10px #ff1a1a,
+		0 0 30px #ff1a1a55;
+	transition: all 0.3s ease;
+}
+
+#numberForm button:hover {
+	box-shadow:
+		0 0 25px #ff1a1a,
+		0 0 60px #ff1a1a88;
+	transform: scale(1.05);
+}
+
+/* Small responsive tweak */
+@media (max-width: 500px) {
+	#container div {
+		font-size: 2rem;
+		padding: 15px 20px;
+	}
+
+	#numberForm {
+		padding: 15px 20px;
+	}
+}

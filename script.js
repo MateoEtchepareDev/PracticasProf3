@@ -1,60 +1,78 @@
-const times = 5
+const times = 5;
 
-const buttonManual = document.getElementById("generate")
-const buttonAutomatic = document.getElementById("generate-automatic")
-const container = document.getElementById("container")
+const startButton = document.getElementById('start-button');
+const container = document.getElementById('container');
 
-let list = []
+const form = document.getElementById('numberForm');
+form.style.display = 'none';
 
-buttonManual.addEventListener("click", () => {
-    if (list.length > 4) {
-    } else {
-        list.push(generateNumber())
+let list = [];
 
-        let randomNumberElement = document.createElement("p")
+startButton.addEventListener('click', () => {
+	container.innerHTML = '';
+	list = [];
+	startButton.style.display = 'none';
+	game();
+});
 
-        randomNumberElement.innerText = list[list.length-1]
-        container.appendChild(randomNumberElement)
+function delay(ms) {
+	return new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
+}
 
-        if (list.length > 4) {
-            buttonManual.remove();
-        }
-    }
-})
+async function game() {
+	if (list.length > 4) {
+		//startButton.style.display = 'block';
+		showEndScreen();
+		return 0;
+	}
 
-buttonAutomatic.addEventListener("click", () => {
-    
-})
+	form.style.display = 'none';
+	let number = 0;
 
-// array must be an array
-function populateArray(array) {
-    array.push(generateNumber())
-    return array
+	while (list[list.length - 1] == number || number == 0) {
+		number = generateNumber();
+	}
+
+	let p = document.createElement('div');
+	p.innerText = number;
+	container.appendChild(p);
+
+	list.push(number);
+	console.log(list);
+
+	await delay(1000);
+	container.removeChild(p);
+	return game();
 }
 
 function generateNumber() {
-    let randomNumber = Math.random(0, 100) * 10
-    if (Math.random(0,1) * 100 > 50) {
-        randomNumber = randomNumber * -1
-    }
-    return randomNumber
+	let randomNumber = Math.round(Math.random() * 15 - 5);
+	return randomNumber;
 }
 
-// array must be the numbers array
-// tag must be the HTML container to render the array
-function showNumbers(array, container) {
-    let randomNumberElement = document.createElement("p")
-    randomNumberElement.innerText = list[list.length-1]
-    container.appendChild(randomNumberElement)
+function showEndScreen() {
+	form.style.display = 'block';
+	console.log(calculateResult(list));
 }
 
-// async function generating and showing random numbers between a fixed delay set by the user
+// Handle form submission
+form.addEventListener('submit', () => {
+	const numberValue = document.getElementById('numberInput').value;
+	console.log(calculateResult(list));
+	if (numberValue == calculateResult(list)) {
+		alert('ganaste');
+	} else {
+		alert('perdiste volve a jugar');
+	}
+});
 
-    // delay
-    /// create button to accelerate the process
-    /// create pause button
-    /// destroy buttons because the delay is over
-    // create random number
-    // show random number
-    // add number to the numbers array
-    // start count for showing the number
+function calculateResult(array) {
+	let result = 0;
+	for (let i = 0; i < array.length; i++) {
+		result = result + array[i];
+	}
+
+	return result;
+}
