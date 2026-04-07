@@ -1,78 +1,52 @@
-const times = 5;
+const apiLink = "https://dolarapi.com/v1/dolares"
+const userForm = document.getElementById("userForm")
+const answer = document.getElementById("answer")
 
-const startButton = document.getElementById('start-button');
-const container = document.getElementById('container');
+let globalData = []
+getPrices()
 
-const form = document.getElementById('numberForm');
-form.style.display = 'none';
-
-let list = [];
-
-startButton.addEventListener('click', () => {
-	container.innerHTML = '';
-	list = [];
-	startButton.style.display = 'none';
-	game();
-});
-
-function delay(ms) {
-	return new Promise((resolve) => {
-		setTimeout(resolve, ms);
-	});
+async function getPrices () {
+    try {
+        raw = await fetch(apiLink)
+        data = await raw.json()
+        globalData = data
+        return generateChart(data)
+    } catch (error) {
+        console.error(error.message)
+    }
 }
 
-async function game() {
-	if (list.length > 4) {
-		//startButton.style.display = 'block';
-		showEndScreen();
-		return 0;
-	}
-
-	form.style.display = 'none';
-	let number = 0;
-
-	while (list[list.length - 1] == number || number == 0) {
-		number = generateNumber();
-	}
-
-	let p = document.createElement('div');
-	p.innerText = number;
-	container.appendChild(p);
-
-	list.push(number);
-	console.log(list);
-
-	await delay(1000);
-	container.removeChild(p);
-	return game();
+function generateChart (data) {
+    let chart = document.createElement("table")
+    data.forEach(element => {
+        let row = document.createElement("tr")
+        let head = document.createElement("th")
+        let buy = document.createElement("td")
+        let sell = document.createElement("td")
+        head.innerHTML = element.nombre
+        buy.innerHTML = element.compra
+        sell.innerHTML = element.venta
+        row.appendChild(head)
+        row.appendChild(buy)
+        row.appendChild(sell)
+        chart.appendChild(row)
+    })
+    document.body.appendChild(chart)
 }
 
-function generateNumber() {
-	let randomNumber = Math.round(Math.random() * 15 - 5);
-	return randomNumber;
-}
+userForm.addEventListener("submit", (e) => {
+    e.preventDefault()
+    const value = document.getElementById("userInput").value
+    buyPriceTag = document.getElementById("buy-price")
+    sellPriceTag = document.getElementById("sell-price")
 
-function showEndScreen() {
-	form.style.display = 'block';
-	console.log(calculateResult(list));
-}
+    let usd = value / globalData[0].compra;
 
-// Handle form submission
-form.addEventListener('submit', () => {
-	const numberValue = document.getElementById('numberInput').value;
-	console.log(calculateResult(list));
-	if (numberValue == calculateResult(list)) {
-		alert('Ganaste!');
-	} else {
-		alert('GAME OVER INSERT COIN');
-	}
-});
+    buyPriceTag.innerText = `Se pueden comprar ${usd} USD`
 
-function calculateResult(array) {
-	let result = 0;
-	for (let i = 0; i < array.length; i++) {
-		result = result + array[i];
-	}
+    usd = value / globalData[0].venta
 
-	return result;
-}
+    sellPriceTag.innerText = `A ese precio se vendieron ${usd} USD`
+
+    answer.style.display = "block"
+})

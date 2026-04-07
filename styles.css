@@ -1,163 +1,247 @@
-/* Reset defaults */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Orbitron', sans-serif; /* sci-fi style font */
+/* ── Reset & Base ── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* Body with dark, high-tech background */
+:root {
+    --bg-base:    #0b0e11;
+    --bg-card:    #161a1e;
+    --bg-input:   #1e2329;
+    --bg-row-alt: #1a1f25;
+    --border:     #2b3139;
+    --green:      #0ecb81;
+    --green-dim:  #0a9e64;
+    --red:        #f6465d;
+    --red-dim:    #c23550;
+    --text-1:     #eaecef;
+    --text-2:     #848e9c;
+    --text-3:     #5e6673;
+    --accent:     #f0b90b;
+    --radius:     8px;
+    --font:       'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+html {
+    font-size: 16px;
+}
+
 body {
-	background: radial-gradient(circle at center, #1a0000, #000000 80%);
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 30px;
-	color: #ff1a1a;
-	overflow: hidden;
+    background-color: var(--bg-base);
+    color: var(--text-1);
+    font-family: var(--font);
+    min-height: 100vh;
+    padding: 40px 16px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
 }
 
-/* Glowing start button */
-#start-button {
-	background-color: transparent;
-	color: #ff1a1a;
-	border: 2px solid #ff1a1a;
-	padding: 18px 50px;
-	border-radius: 30px;
-	font-size: 1.5rem;
-	cursor: pointer;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-	transition: all 0.3s ease;
-	box-shadow:
-		0 0 15px #ff1a1a,
-		0 0 40px #ff1a1a55,
-		0 0 60px #ff1a1a33;
+/* ── Typography ── */
+h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-1);
+    text-align: center;
+    letter-spacing: -0.3px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--accent);
 }
 
-#start-button:hover {
-	box-shadow:
-		0 0 25px #ff1a1a,
-		0 0 60px #ff1a1a88,
-		0 0 90px #ff1a1a55;
-	transform: scale(1.05);
+h2, h3 {
+    color: var(--text-1);
+    font-weight: 600;
 }
 
-/* Container for numbers */
-#container {
-	display: flex;
-	gap: 20px;
-	flex-wrap: wrap;
-	justify-content: center;
-	min-height: 100px;
+h4 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-2);
 }
 
-/* Number display boxes with neon sci-fi effect */
-#container div {
-	background-color: #330000;
-	color: #ff1a1a;
-	font-weight: bold;
-	font-size: 2.5rem;
-	padding: 25px 35px;
-	border-radius: 15px;
-	border: 2px solid #ff1a1a;
-	box-shadow:
-		0 0 10px #ff1a1a,
-		0 0 25px #ff1a1a77,
-		0 0 50px #ff1a1a44 inset;
-	opacity: 0;
-	transform: scale(0.5) rotateX(90deg);
-	animation: pop 0.5s forwards;
+p {
+    color: var(--text-2);
+    line-height: 1.6;
 }
 
-/* Pop-in animation with spin */
-@keyframes pop {
-	to {
-		opacity: 1;
-		transform: scale(1) rotateX(0deg);
-	}
+/* ── Form ── */
+form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    width: 100%;
+    max-width: 480px;
 }
 
-/* Form styling with futuristic red glow */
-#numberForm {
-	margin-top: 0;
-	background-color: #1a0000cc;
-	padding: 25px 35px;
-	border-radius: 20px;
-	box-shadow:
-		0 0 20px #ff1a1a,
-		0 0 60px #ff1a1a44 inset;
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
-	min-width: 200px;
-	border: 2px solid #ff1a1a;
+input[type="number"] {
+    flex: 1;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-1);
+    font-size: 1rem;
+    font-family: var(--font);
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    -moz-appearance: textfield;
 }
 
-/* Labels */
-#numberForm label {
-	font-size: 1.1rem;
-	font-weight: 500;
-	color: #ff4d4d;
-	letter-spacing: 1px;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
 }
 
-/* Input with red neon glow */
-#numberForm input[type='number'] {
-	padding: 12px;
-	border-radius: 10px;
-	border: 2px solid #ff1a1a;
-	background-color: #330000;
-	color: #ff1a1a;
-	font-size: 1rem;
-	outline: none;
-	transition: all 0.3s ease;
-	box-shadow:
-		0 0 5px #ff1a1a,
-		0 0 15px #ff1a1a44 inset;
+input[type="number"]:focus {
+    border-color: var(--accent);
 }
 
-#numberForm input[type='number']:focus {
-	border-color: #ff4d4d;
-	box-shadow:
-		0 0 15px #ff1a1a,
-		0 0 30px #ff4d4d77 inset;
+input[type="number"]::placeholder {
+    color: var(--text-3);
 }
 
-/* Submit button with neon glow */
-#numberForm button {
-	background-color: transparent;
-	color: #ff1a1a;
-	border: 2px solid #ff1a1a;
-	padding: 12px 0;
-	border-radius: 30px;
-	font-size: 1.1rem;
-	cursor: pointer;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-	box-shadow:
-		0 0 10px #ff1a1a,
-		0 0 30px #ff1a1a55;
-	transition: all 0.3s ease;
+input[type="submit"] {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: var(--radius);
+    padding: 10px 22px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: var(--font);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
 }
 
-#numberForm button:hover {
-	box-shadow:
-		0 0 25px #ff1a1a,
-		0 0 60px #ff1a1a88;
-	transform: scale(1.05);
+input[type="submit"]:hover {
+    background: #d4a009;
 }
 
-/* Small responsive tweak */
-@media (max-width: 500px) {
-	#container div {
-		font-size: 2rem;
-		padding: 15px 20px;
-	}
+input[type="submit"]:active {
+    transform: scale(0.97);
+}
 
-	#numberForm {
-		padding: 15px 20px;
-	}
+/* ── Answer card ── */
+#answer {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 24px;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Target the two h4s inside #answer */
+#answer h4:first-child {
+    color: var(--green);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+#answer h4:last-child {
+    color: var(--red);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* ── Table (precio chart) ── */
+table {
+    width: 100%;
+    max-width: 480px;
+    border-collapse: collapse;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    font-size: 0.9rem;
+}
+
+tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+}
+
+tr:last-child {
+    border-bottom: none;
+}
+
+tr:nth-child(even) {
+    background: var(--bg-row-alt);
+}
+
+tr:hover {
+    background: #222830;
+}
+
+th {
+    text-align: left;
+    padding: 12px 16px;
+    color: var(--text-2);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+}
+
+td {
+    padding: 12px 16px;
+    color: var(--text-1);
+    font-variant-numeric: tabular-nums;
+}
+
+/* First td = compra → green, second td = venta → red */
+td:nth-child(2) {
+    color: var(--green);
+    font-weight: 600;
+}
+
+td:nth-child(3) {
+    color: var(--red);
+    font-weight: 600;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 520px) {
+    h1 {
+        font-size: 1.1rem;
+    }
+
+    form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 12px;
+    }
+
+    th, td {
+        padding: 10px 12px;
+    }
 }
